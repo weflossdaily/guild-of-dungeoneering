@@ -22,9 +22,9 @@ CREATE TABLE Quest(
     Id INTEGER PRIMARY KEY ASC NOT NULL,
     AdventureId INTEGER NOT NULL,
     Name VARCHAR(50) NOT NULL,
-    Bonus INTEGER NOT NULL,
+    Bonus INTEGER,-- NOT NULL,
     LastAward INTEGER NULL,
-    Objective VARCHAR(200) NOT NULL,
+    Objective VARCHAR(200),-- NOT NULL,
     BossChase INTEGER NULL,
     TurnLimit INTEGER NULL,
     LimitConsequenceId INTEGER NULL,
@@ -37,8 +37,8 @@ CREATE TABLE Quest(
 CREATE TABLE Monster(
     Id INTEGER PRIMARY KEY ASC NOT NULL,
     Name VARCHAR(50) NOT NULL,
-    Level INTEGER NOT NULL,
-    Hearts INTEGER NOT NULL,
+    Level INTEGER,-- NOT NULL,
+    Hearts INTEGER,-- NOT NULL,
     CONSTRAINT NameUnique UNIQUE (Name)
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE Dungeoneer(
     Id INTEGER PRIMARY KEY ASC NOT NULL,
     Name VARCHAR(50) NOT NULL,
     Hearts INTEGER NOT NULL,
-    UnlockCost INTEGER NOT NULL,
+    UnlockCost INTEGER NULL,
     CONSTRAINT NameUnique UNIQUE (Name)
 );
 
@@ -91,6 +91,12 @@ CREATE TABLE GuildUpgrade(
     CONSTRAINT NameUnique UNIQUE (Name)
 );
 
+CREATE TABLE Bodypart(
+    Id INTEGER PRIMARY KEY ASC NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    CONSTRAINT NameUnique UNIQUE (Name)
+);
+
 CREATE TABLE Item(
     Id INTEGER PRIMARY KEY ASC NOT NULL,
     Name VARCHAR(50) NOT NULL,
@@ -98,8 +104,10 @@ CREATE TABLE Item(
     RarityId INTEGER NOT NULL,
     Level INTEGER NOT NULL,
     Hearts INTEGER NOT NULL,
+    BodypartId INTEGER NOT NULL,
     FOREIGN KEY(GuildUpgradeId) REFERENCES GuildUpgrade(Id),
     FOREIGN KEY(RarityId) REFERENCES Rarity(Id),
+    FOREIGN KEY(BodypartId) REFERENCES Bodypart(Id),
     CONSTRAINT NameUnique UNIQUE (Name)
 );
 
