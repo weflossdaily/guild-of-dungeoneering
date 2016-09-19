@@ -67,7 +67,7 @@ CREATE TABLE Discipline(
 CREATE TABLE Trait(
     Id INTEGER PRIMARY KEY ASC NOT NULL,
     Name VARCHAR(50) NOT NULL,
-    Description VARCHAR(200) NOT NULL,
+    Description VARCHAR(200),-- NOT NULL,
     CONSTRAINT NameUnique UNIQUE (Name)
 );
 
@@ -182,7 +182,7 @@ CREATE TABLE DisciplineCard(
     Level INTEGER NOT NULL,
     FOREIGN KEY(DisciplineId) REFERENCES Discipline(Id),
     FOREIGN KEY(CardId) REFERENCES Card(Id),
-    CONSTRAINT DisciplineCardUnique UNIQUE (DisciplineId,CardId)
+    CONSTRAINT DisciplineLevelUnique UNIQUE (DisciplineId,Level)
 );
 
 CREATE TABLE DungeoneerCard(
