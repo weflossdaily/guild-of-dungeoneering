@@ -48,6 +48,7 @@ INSERT INTO Quest(AdventureId, Name, Bonus, LastAward, Objective, BossChase, Tur
 INSERT INTO Monster(Name, Level, Hearts) VALUES
     ('Giant Bat',1,NULL),
     ('Nasty Rat',1,5),
+    ('Rubber Ducky',1,4),
     ('Rat Man',2,6),
     ('Gnoll',2,6),
     ('Rat King',NULL,NULL),
@@ -90,6 +91,7 @@ INSERT INTO Monster(Name, Level, Hearts) VALUES
     ('Ogre', 4, 10);
 
 INSERT INTO MonsterQuest(MonsterId,QuestId) VALUES
+    ((SELECT Id FROM Monster WHERE Name = 'Rubber Ducky'), (SELECT Id FROM Quest WHERE Name = 'Squeak squeak')),
     ((SELECT Id FROM Monster WHERE Name = 'Giant Bat'), (SELECT Id FROM Quest WHERE Name = 'Squeak squeak')),
     ((SELECT Id FROM Monster WHERE Name = 'Nasty Rat'), (SELECT Id FROM Quest WHERE Name = 'Squeak squeak')),
     ((SELECT Id FROM Monster WHERE Name = 'Nasty Rat'), (SELECT Id FROM Quest WHERE Name = 'Rat pack')),
