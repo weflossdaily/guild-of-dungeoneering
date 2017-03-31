@@ -21,7 +21,7 @@ INSERT INTO Consequence(Name) VALUES
     ('Boss Fight');
 
 INSERT INTO Quest(AdventureId, Name, Bonus, LastAward, Objective, BossChase, TurnLimit, LimitConsequenceId,Comment) VALUES
-    ((SELECT Id FROM Adventure WHERE Name = 'Snakes on a Plain'), 'Whyd it Have to Be Snakes', 50, NULL, NULL, 0, NULL, NULL, NULL),
+    ((SELECT Id FROM Adventure WHERE Name = 'Snakes on a Plain'), 'Whyd it Have to Be Snakes', 50, NULL, NULL, 0, NULL, NULL, 'Watch out! A level 2 Poisonous Snake will likely ambush you after your first move!'),
     ((SELECT Id FROM Adventure WHERE Name = 'Snakes on a Plain'), 'Stony Stare', 300, 353, 'Defeat Medusa before you get turned to stone!', 0, 10, (SELECT Id FROM Consequence WHERE Name = 'Death'), NULL),
     ((SELECT Id FROM Adventure WHERE Name = 'The Sapphire of Tlaloc'), 'Grab', 50, 61, 'Steal the Sapphire', 0, NULL, NULL, NULL),
     ((SELECT Id FROM Adventure WHERE Name = 'The Sapphire of Tlaloc'), 'Run', 300, 355, 'Get out before the roof collapses!', 0, 9, (SELECT Id FROM Consequence WHERE Name = 'Death'), NULL),
@@ -105,6 +105,9 @@ INSERT INTO MonsterQuest(MonsterId,QuestId) VALUES
     ((SELECT Id FROM Monster WHERE Name = 'Bloodstarved Bat'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
     ((SELECT Id FROM Monster WHERE Name = 'Maneating Plant'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
     ((SELECT Id FROM Monster WHERE Name = 'Poisonous Snake'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
+    ((SELECT Id FROM Monster WHERE Name = 'Leggy Spider'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
+    ((SELECT Id FROM Monster WHERE Name = 'Dire Scorpion'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
+    ((SELECT Id FROM Monster WHERE Name = 'Lizardman'), (SELECT Id FROM Quest WHERE Name = 'Whyd it Have to Be Snakes')),
     ((SELECT Id FROM Monster WHERE Name = 'Oarsman'), (SELECT Id FROM Quest WHERE Name = 'Parrot Treasure')),
     ((SELECT Id FROM Monster WHERE Name = 'One-headed Monkey'), (SELECT Id FROM Quest WHERE Name = 'Parrot Treasure')),
     ((SELECT Id FROM Monster WHERE Name = 'Sea Monkey'), (SELECT Id FROM Quest WHERE Name = 'Parrot Treasure')),
@@ -787,7 +790,15 @@ INSERT INTO Effect(Name) VALUES
     ('Swap'),
     ('Draw');
 
--- INSERT INTO CardEffect (CardId,EffectId,Quantity,NeedsSuccess) VALUES
+INSERT INTO CardEffect (CardId,EffectId,Quantity,NeedsSuccess) VALUES
+    ((SELECT Id FROM Card WHERE Name = 'Restore'), (SELECT Id FROM Effect WHERE Name = 'Magic Damage'), 1, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Neurotoxin'), (SELECT Id FROM Effect WHERE Name = 'Physical Damage'), 1, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Neurotoxin'), (SELECT Id FROM Effect WHERE Name = 'Discard'), 1, 1),
+    ((SELECT Id FROM Card WHERE Name = 'Spider Bite'), (SELECT Id FROM Effect WHERE Name = 'Physical Damage'), 2, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Venomous Bite'), (SELECT Id FROM Effect WHERE Name = 'Physical Damage'), 2, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Venomous Bite'), (SELECT Id FROM Effect WHERE Name = 'Unblockable'), NULL, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Claw'), (SELECT Id FROM Effect WHERE Name = 'Physical Damage'), 1, NULL),
+    ((SELECT Id FROM Card WHERE Name = 'Restore'), (SELECT Id FROM Effect WHERE Name = 'Add Heart'), 2, 1);
 
 INSERT INTO DisciplineCard(DisciplineId,CardId,Level) VALUES
     ((SELECT Id FROM Discipline WHERE Name = 'Burly'), (SELECT Id FROM Card WHERE Name = 'Beat'), 1),
